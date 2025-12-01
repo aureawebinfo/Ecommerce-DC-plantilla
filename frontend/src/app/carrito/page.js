@@ -5,11 +5,11 @@ import { useAuth } from '../../context/AuthContext'
 import Link from 'next/link'
 
 // 1. IMPORTAR ICONOS
-import { 
-  ShoppingCart, Trash2, Plus, Minus, ArrowLeft, ArrowRight, 
-  ShieldCheck, Store, MapPin, Clock, Phone, Mail, 
-  Facebook, Instagram, Youtube, Quote, Menu, X, LogIn, LogOut, User,
-  ShoppingBasket, Linkedin, MessageCircle
+import {
+    ShoppingCart, Trash2, Plus, Minus, ArrowLeft, ArrowRight,
+    ShieldCheck, Store, MapPin, Clock, Phone, Mail,
+    Facebook, Instagram, Youtube, Quote, Menu, X, LogIn, LogOut, User,
+    ShoppingBasket, Linkedin, MessageCircle
 } from 'lucide-react'
 
 const DJANGO_BASE_URL = 'http://127.0.0.1:8000';
@@ -56,8 +56,8 @@ export default function Carrito() {
                         </div>
                     ) : (
                         <div className="hidden md:flex items-center gap-3 font-bold text-sm">
-                            <div className="flex items-center gap-1 bg-[#007a3a] px-3 py-1 rounded-full"><User size={16} className="text-yellow-300"/><span className="truncate max-w-[100px]">{user.nombre}</span></div>
-                            <button onClick={logout} className="hover:text-red-300 transition-colors"><LogOut size={18}/></button>
+                            <div className="flex items-center gap-1 bg-[#007a3a] px-3 py-1 rounded-full"><User size={16} className="text-yellow-300" /><span className="truncate max-w-[100px]">{user.nombre}</span></div>
+                            <button onClick={logout} className="hover:text-red-300 transition-colors"><LogOut size={18} /></button>
                         </div>
                     )}
                     <Link href="/carrito" className="relative group hover:scale-110 transition-transform">
@@ -80,11 +80,11 @@ export default function Carrito() {
                             ))}
                             {!user ? (
                                 <div className="flex flex-col gap-2 pt-2 mt-2 border-t border-[#007a3a]">
-                                    <Link href="/login" className="py-2 px-4 text-white hover:text-yellow-300 font-bold flex items-center gap-2"><LogIn size={18}/> Ingresar</Link>
+                                    <Link href="/login" className="py-2 px-4 text-white hover:text-yellow-300 font-bold flex items-center gap-2"><LogIn size={18} /> Ingresar</Link>
                                 </div>
                             ) : (
                                 <div className="flex items-center justify-between pt-4 mt-2 border-t border-[#007a3a] px-4">
-                                    <div className="flex items-center gap-2 font-bold text-white"><User size={18} className="text-yellow-300"/> {user.nombre}</div>
+                                    <div className="flex items-center gap-2 font-bold text-white"><User size={18} className="text-yellow-300" /> {user.nombre}</div>
                                     <button onClick={logout} className="text-red-300 font-bold text-sm">Salir</button>
                                 </div>
                             )}
@@ -163,6 +163,9 @@ export default function Carrito() {
                     <p className="text-xs opacity-70 flex items-center justify-center gap-1 text-yellow-300">
                         <Quote size={10} /> Calidad y Tradición <Quote size={10} />
                     </p>
+                    <p className="text-xs text-green-100/60 mt-2">
+                        Plantilla desarollada por <a href="https://aurea-web.com" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-yellow-300 transition-colors">Áurea Web</a>
+                    </p>
                 </div>
             </div>
         </footer>
@@ -202,7 +205,7 @@ export default function Carrito() {
             <div className="bg-[#009045] pt-32 md:pt-40 pb-20 rounded-br-[4rem] md:rounded-br-[6rem] shadow-lg mb-8 relative overflow-hidden">
                 {/* Decoración de fondo opcional */}
                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-                
+
                 <div className="container mx-auto px-4 text-center relative z-10">
                     <h1 className="text-4xl md:text-6xl font-black text-white mb-2 drop-shadow-md">
                         Tu <span className="text-yellow-400">Carrito</span>
@@ -215,7 +218,7 @@ export default function Carrito() {
 
             {/* Main content - Padding superior ajustado (ya no es pt-48) */}
             <main className="container mx-auto px-4 py-8 flex-1">
-                
+
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
                     {/* Lista de Productos */}
@@ -290,7 +293,7 @@ export default function Carrito() {
                                 </div>
                                 <div className="flex justify-between">
                                     <span>Envío</span>
-                                    <span className="text-yellow-300 font-bold flex items-center gap-1"><Store size={16}/> Gratis</span>
+                                    <span className="text-yellow-300 font-bold flex items-center gap-1"><Store size={16} /> Gratis</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span>Impuestos (19%)</span>

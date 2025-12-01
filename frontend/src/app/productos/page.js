@@ -7,12 +7,12 @@ import LoadingSpinner from '../../components/LoadingSpinner'
 import { apiService } from '../../services/ApiService'
 
 // ICONOS
-import { 
+import {
   ShoppingCart, X, Search, Filter, ArrowLeft, ArrowRight,
   LayoutGrid, CheckCircle, ImageOff, LogIn, LogOut, User, Menu,
   Star, Tag, MapPin, Clock, Phone, Mail, Facebook, Instagram, Youtube, Quote,
   Linkedin, MessageCircle, // <--- Agregados para el footer
-  Drumstick, Milk, Croissant, Coffee, Candy 
+  Drumstick, Milk, Croissant, Coffee, Candy
 } from 'lucide-react'
 
 const DJANGO_BASE_URL = 'http://127.0.0.1:8000';
@@ -24,7 +24,7 @@ const SuccessModal = ({ isOpen, onClose, lastAdded, recommendations, onAddRecomm
 
   return (
     <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm p-0 md:p-4 animate-fade-in" onClick={onClose}>
-      <div 
+      <div
         className="bg-white w-full max-w-3xl md:rounded-[2rem] rounded-t-[2rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] animate-slide-up"
         onClick={e => e.stopPropagation()}
       >
@@ -43,25 +43,25 @@ const SuccessModal = ({ isOpen, onClose, lastAdded, recommendations, onAddRecomm
           <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
             {recommendations.slice(0, 6).map((rec) => (
               <div key={rec.id} className="min-w-[150px] max-w-[150px] snap-center bg-white border border-gray-200 rounded-2xl p-3 flex flex-col hover:shadow-lg transition-shadow relative group">
-                 {rec.oferta && <span className="absolute top-2 right-2 bg-black text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm z-10">OFERTA</span>}
-                 
-                 <div className="h-24 w-full flex items-center justify-center mb-2 relative overflow-hidden">
-                    {rec.imagen ? (
-                      <img src={rec.imagen} alt={rec.nombre} className="h-full w-full object-contain group-hover:scale-105 transition-transform" />
-                    ) : (
-                      <div className="text-gray-300"><ImageOff size={24} /></div>
-                    )}
-                 </div>
-                 
-                 <h4 className="text-xs font-bold text-gray-800 leading-tight mb-1 line-clamp-2 h-8">{rec.nombre}</h4>
-                 <p className="text-sm font-black text-[#009045] mb-2">${rec.precio.toLocaleString()}</p>
-                 
-                 <button 
-                    onClick={() => onAddRecommendation(rec)}
-                    className="w-full mt-auto bg-[#009045] hover:bg-[#007a3a] text-white text-[10px] font-bold py-2 rounded-full flex items-center justify-center gap-1 transition-colors active:scale-95"
-                 >
-                    <ShoppingCart size={12} /> Agregar
-                 </button>
+                {rec.oferta && <span className="absolute top-2 right-2 bg-black text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm z-10">OFERTA</span>}
+
+                <div className="h-24 w-full flex items-center justify-center mb-2 relative overflow-hidden">
+                  {rec.imagen ? (
+                    <img src={rec.imagen} alt={rec.nombre} className="h-full w-full object-contain group-hover:scale-105 transition-transform" />
+                  ) : (
+                    <div className="text-gray-300"><ImageOff size={24} /></div>
+                  )}
+                </div>
+
+                <h4 className="text-xs font-bold text-gray-800 leading-tight mb-1 line-clamp-2 h-8">{rec.nombre}</h4>
+                <p className="text-sm font-black text-[#009045] mb-2">${rec.precio.toLocaleString()}</p>
+
+                <button
+                  onClick={() => onAddRecommendation(rec)}
+                  className="w-full mt-auto bg-[#009045] hover:bg-[#007a3a] text-white text-[10px] font-bold py-2 rounded-full flex items-center justify-center gap-1 transition-colors active:scale-95"
+                >
+                  <ShoppingCart size={12} /> Agregar
+                </button>
               </div>
             ))}
           </div>
@@ -92,7 +92,7 @@ const ProductDetailModal = ({ product, onClose, onAddToCart }) => {
     <div className={`fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md transition-opacity duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`} onClick={handleClose}>
       <div className={`bg-white rounded-[2rem] max-w-4xl w-full max-h-[90vh] overflow-y-auto flex flex-col md:flex-row shadow-2xl relative transition-all duration-300 transform ${isClosing ? 'scale-95 opacity-0 translate-y-4' : 'scale-100 opacity-100 translate-y-0'}`} onClick={e => e.stopPropagation()}>
         <button onClick={handleClose} className="absolute top-4 right-4 bg-white/80 hover:bg-red-100 text-gray-500 hover:text-red-500 w-10 h-10 rounded-full flex items-center justify-center transition-colors z-20 shadow-sm"><X size={20} /></button>
-        
+
         {/* Lado Izquierdo: Color del producto */}
         <div className={`md:w-1/2 p-10 flex items-center justify-center ${product.cardColor} relative overflow-hidden group`}>
           <div className="absolute inset-0 bg-black/10 mix-blend-multiply"></div>
@@ -124,8 +124,8 @@ export default function Productos() {
   const [selectedCategory, setSelectedCategory] = useState('todos')
   const [sortBy, setSortBy] = useState('destacados')
   const [searchTerm, setSearchTerm] = useState('')
-  
-  const [selectedProduct, setSelectedProduct] = useState(null) 
+
+  const [selectedProduct, setSelectedProduct] = useState(null)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [lastAddedProduct, setLastAddedProduct] = useState(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -187,9 +187,9 @@ export default function Productos() {
         const precio = parseFloat(product.precio) || 0
         const precio_original = product.precio_original ? parseFloat(product.precio_original) : null
         const imageUrl = product.imagen && !product.imagen.includes('http')
-                ? `${DJANGO_BASE_URL}${DJANGO_MEDIA_PATH}${product.imagen}`
-                : product.imagen;
-        
+          ? `${DJANGO_BASE_URL}${DJANGO_MEDIA_PATH}${product.imagen}`
+          : product.imagen;
+
         return {
           id: product.id || Date.now() + index,
           nombre: product.nombre || 'Producto',
@@ -228,18 +228,18 @@ export default function Productos() {
       })
     }
     if (searchTerm) filtered = filtered.filter(p => p.nombre.toLowerCase().includes(searchTerm.toLowerCase()))
-    
+
     if (sortBy === 'precio-asc') filtered = [...filtered].sort((a, b) => a.precio - b.precio)
     if (sortBy === 'precio-desc') filtered = [...filtered].sort((a, b) => b.precio - a.precio)
     if (sortBy === 'nombre') filtered = [...filtered].sort((a, b) => a.nombre.localeCompare(b.nombre))
-    
+
     setFilteredProducts(filtered)
   }, [selectedCategory, sortBy, searchTerm, products])
 
-  const handleAddToCart = (product) => { 
-     addToCart(product)
-     setLastAddedProduct(product)
-     setShowSuccessModal(true)
+  const handleAddToCart = (product) => {
+    addToCart(product)
+    setLastAddedProduct(product)
+    setShowSuccessModal(true)
   }
 
   if (loading) return <LoadingSpinner text="Preparando el menú..." />
@@ -274,8 +274,8 @@ export default function Productos() {
               </div>
             ) : (
               <div className="hidden md:flex items-center gap-3 font-bold text-sm">
-                <div className="flex items-center gap-1 bg-[#007a3a] px-3 py-1 rounded-full"><User size={16} className="text-yellow-300"/><span className="truncate max-w-[100px]">{user.nombre}</span></div>
-                <button onClick={logout} className="hover:text-red-300 transition-colors"><LogOut size={18}/></button>
+                <div className="flex items-center gap-1 bg-[#007a3a] px-3 py-1 rounded-full"><User size={16} className="text-yellow-300" /><span className="truncate max-w-[100px]">{user.nombre}</span></div>
+                <button onClick={logout} className="hover:text-red-300 transition-colors"><LogOut size={18} /></button>
               </div>
             )}
             <Link href="/carrito" className="relative group hover:scale-110 transition-transform">
@@ -316,89 +316,89 @@ export default function Productos() {
       <SuccessModal isOpen={showSuccessModal} onClose={() => setShowSuccessModal(false)} lastAdded={lastAddedProduct} recommendations={products} onAddRecommendation={handleAddToCart} />
 
       <main className="container mx-auto px-2 md:px-4 pb-20">
-        
+
         {/* BUSCADOR Y FILTROS STICKY */}
         <div className="sticky top-20 z-40 bg-[#f8f9fa] py-2 transition-all">
-           <div className="bg-white p-2 rounded-xl shadow-sm border border-gray-200 flex gap-2 mb-3">
-              <div className="relative flex-1">
-                 <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
-                 <input type="text" placeholder="¿Qué buscas hoy?" className="w-full bg-gray-50 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-green-500" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-              </div>
-              <div className="hidden md:flex relative items-center border-l pl-2 border-gray-100">
-                 <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="appearance-none bg-transparent font-bold text-xs text-gray-600 outline-none pr-6 cursor-pointer">
-                    {sortOptions.map(opt => <option key={opt.id} value={opt.id}>{opt.name}</option>)}
-                 </select>
-                 <ArrowRight size={14} className="absolute right-0 rotate-90 text-gray-400 pointer-events-none" />
-              </div>
-           </div>
-           <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-              {categories.map((cat) => (
-                 <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold border transition-colors flex items-center gap-1 shadow-sm ${selectedCategory === cat.id ? 'bg-[#009045] text-white border-[#009045]' : 'bg-white text-gray-600 border-gray-200 hover:border-green-300'}`}>
-                    {cat.icon} {cat.name}
-                 </button>
-              ))}
-           </div>
+          <div className="bg-white p-2 rounded-xl shadow-sm border border-gray-200 flex gap-2 mb-3">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
+              <input type="text" placeholder="¿Qué buscas hoy?" className="w-full bg-gray-50 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-green-500" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            </div>
+            <div className="hidden md:flex relative items-center border-l pl-2 border-gray-100">
+              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="appearance-none bg-transparent font-bold text-xs text-gray-600 outline-none pr-6 cursor-pointer">
+                {sortOptions.map(opt => <option key={opt.id} value={opt.id}>{opt.name}</option>)}
+              </select>
+              <ArrowRight size={14} className="absolute right-0 rotate-90 text-gray-400 pointer-events-none" />
+            </div>
+          </div>
+          <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+            {categories.map((cat) => (
+              <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold border transition-colors flex items-center gap-1 shadow-sm ${selectedCategory === cat.id ? 'bg-[#009045] text-white border-[#009045]' : 'bg-white text-gray-600 border-gray-200 hover:border-green-300'}`}>
+                {cat.icon} {cat.name}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* --- GRID DE PRODUCTOS: ESTILO VINTAGE COLORIDO CON SOMBRA CIRCULAR --- */}
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6 mt-2">
             {filteredProducts.map((product) => (
-              <div 
-                 key={product.id}
-                 onClick={() => setSelectedProduct(product)}
-                 className={`
+              <div
+                key={product.id}
+                onClick={() => setSelectedProduct(product)}
+                className={`
                     rounded-3xl p-4 flex flex-col relative group hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden h-full
                     ${product.cardColor} text-white
                  `}
               >
-                 {/* Badges */}
-                 <div className="absolute top-2 left-2 z-10 flex flex-col gap-1 pointer-events-none">
-                    {product.oferta && <span className="bg-white text-red-500 text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm">OFERTA</span>}
-                    {product.nuevo && <span className="bg-yellow-400 text-black text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm">NUEVO</span>}
-                 </div>
+                {/* Badges */}
+                <div className="absolute top-2 left-2 z-10 flex flex-col gap-1 pointer-events-none">
+                  {product.oferta && <span className="bg-white text-red-500 text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm">OFERTA</span>}
+                  {product.nuevo && <span className="bg-yellow-400 text-black text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm">NUEVO</span>}
+                </div>
 
-                 {/* Imagen con "Sombrita" Circular Detrás */}
-                 <div className="h-32 md:h-44 w-full flex items-center justify-center mb-3 relative">
-                    {/* Círculo de sombra detrás */}
-                    <div className="absolute w-24 h-24 md:w-32 md:h-32 bg-black/20 rounded-full blur-xl group-hover:scale-125 transition-transform duration-500"></div>
-                    
-                    {product.imagen ? (
-                       <img 
-                          src={product.imagen} 
-                          alt={product.nombre} 
-                          className="h-full w-full object-contain relative z-10 group-hover:scale-110 transition-transform duration-500 drop-shadow-xl"
-                       />
-                    ) : (
-                       <div className="text-white/50 relative z-10"><ImageOff size={40} /></div>
-                    )}
-                 </div>
+                {/* Imagen con "Sombrita" Circular Detrás */}
+                <div className="h-32 md:h-44 w-full flex items-center justify-center mb-3 relative">
+                  {/* Círculo de sombra detrás */}
+                  <div className="absolute w-24 h-24 md:w-32 md:h-32 bg-black/20 rounded-full blur-xl group-hover:scale-125 transition-transform duration-500"></div>
 
-                 {/* Info */}
-                 <div className="flex-1 flex flex-col items-center text-center">
-                    <h3 className="text-xs md:text-sm font-black leading-tight mb-2 line-clamp-2 h-8 md:h-10 drop-shadow-md">
-                       {product.nombre}
-                    </h3>
+                  {product.imagen ? (
+                    <img
+                      src={product.imagen}
+                      alt={product.nombre}
+                      className="h-full w-full object-contain relative z-10 group-hover:scale-110 transition-transform duration-500 drop-shadow-xl"
+                    />
+                  ) : (
+                    <div className="text-white/50 relative z-10"><ImageOff size={40} /></div>
+                  )}
+                </div>
 
-                    <div className="mt-auto w-full">
-                       <div className="flex flex-col items-center mb-3">
-                          {product.precio_original && (
-                             <p className="text-[10px] opacity-70 line-through">${product.precio_original.toLocaleString()}</p>
-                          )}
-                          <p className="text-lg md:text-xl font-black text-yellow-300 drop-shadow-sm">
-                             ${product.precio.toLocaleString()}
-                          </p>
-                       </div>
-                       
-                       {/* Botón Estilo Vintage (Claro) */}
-                       <button 
-                          onClick={(e) => { e.stopPropagation(); handleAddToCart(product); }}
-                          className="w-full bg-[#fdf0d5] text-[#009045] text-xs md:text-sm font-black py-2.5 rounded-full shadow-lg hover:bg-white hover:scale-105 transition-all active:scale-95 flex items-center justify-center gap-1.5"
-                       >
-                          <ShoppingCart size={16} /> AGREGAR
-                       </button>
+                {/* Info */}
+                <div className="flex-1 flex flex-col items-center text-center">
+                  <h3 className="text-xs md:text-sm font-black leading-tight mb-2 line-clamp-2 h-8 md:h-10 drop-shadow-md">
+                    {product.nombre}
+                  </h3>
+
+                  <div className="mt-auto w-full">
+                    <div className="flex flex-col items-center mb-3">
+                      {product.precio_original && (
+                        <p className="text-[10px] opacity-70 line-through">${product.precio_original.toLocaleString()}</p>
+                      )}
+                      <p className="text-lg md:text-xl font-black text-yellow-300 drop-shadow-sm">
+                        ${product.precio.toLocaleString()}
+                      </p>
                     </div>
-                 </div>
+
+                    {/* Botón Estilo Vintage (Claro) */}
+                    <button
+                      onClick={(e) => { e.stopPropagation(); handleAddToCart(product); }}
+                      className="w-full bg-[#fdf0d5] text-[#009045] text-xs md:text-sm font-black py-2.5 rounded-full shadow-lg hover:bg-white hover:scale-105 transition-all active:scale-95 flex items-center justify-center gap-1.5"
+                    >
+                      <ShoppingCart size={16} /> AGREGAR
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -407,21 +407,17 @@ export default function Productos() {
             <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6 text-gray-300"><Search size={40} /></div>
             <h3 className="text-xl font-black text-gray-800 mb-2">No encontramos resultados</h3>
             <button onClick={() => { setSelectedCategory('todos'); setSearchTerm('') }} className="bg-[#009045] text-white px-6 py-2.5 rounded-full font-bold hover:bg-[#007a3a] text-sm transition-all flex items-center gap-2">
-               Ver todo el menú
+              Ver todo el menú
             </button>
           </div>
         )}
       </main>
 
-      {/* --- FOOTER AJUSTADO --- */}
+      {/* --- FOOTER --- */}
       <footer className="bg-[#009045] text-white mt-auto flex flex-col font-sans border-t-[8px] border-yellow-400">
-        
-        {/* PARTE SUPERIOR: INFORMACIÓN (DEL FOOTER 1) */}
-        {/* pb-24 da espacio para que el logo flotante no tape el texto */}
         <div className="container mx-auto px-4 md:px-8 py-12 pb-24">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            
-            {/* Contactanos */}
+
             <div>
               <h3 className="text-xl font-bold mb-4 pb-2 border-b border-[#007a3a]">Contáctanos</h3>
               <p className="mb-2 text-green-50">Desde celular a nivel nacional</p>
@@ -431,24 +427,23 @@ export default function Productos() {
               <p className="font-bold text-yellow-300 text-lg">311 2281010</p>
             </div>
 
-            {/* Nosotros */}
             <div>
               <h3 className="text-xl font-bold mb-4 pb-2 border-b border-[#007a3a]">Nosotros</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Quiénes somos</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Nuestra Historia</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Negocios Institucionales</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Sostenibilidad</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Noticias</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Trabaja con nosotros</a></li>
+                {/* Enlaces funcionales */}
+                <li><Link href="/nosotros" className="hover:text-yellow-300 transition-colors">Quiénes somos</Link></li>
+                <li><Link href="/nosotros" className="hover:text-yellow-300 transition-colors">Nuestra Historia</Link></li>
+                <li><Link href="/contacto" className="hover:text-yellow-300 transition-colors">Negocios Institucionales</Link></li>
+                <li><Link href="/nosotros" className="hover:text-yellow-300 transition-colors">Sostenibilidad</Link></li>
+                <li><Link href="/contacto" className="hover:text-yellow-300 transition-colors">Trabaja con nosotros</Link></li>
               </ul>
             </div>
 
-            {/* Legales & Servicios */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <h3 className="text-xl font-bold mb-4 pb-2 border-b border-[#007a3a]">Legales</h3>
                 <ul className="space-y-2 text-sm text-green-50">
+                  {/* Estos pueden quedar con # si no existen las páginas aún */}
                   <li><a href="#" className="hover:text-yellow-300 transition-colors">Aviso de privacidad</a></li>
                   <li><a href="#" className="hover:text-yellow-300 transition-colors">Políticas</a></li>
                   <li><a href="#" className="hover:text-yellow-300 transition-colors">Términos</a></li>
@@ -457,18 +452,17 @@ export default function Productos() {
               <div>
                 <h3 className="text-xl font-bold mb-4 pb-2 border-b border-[#007a3a]">Servicios</h3>
                 <ul className="space-y-2 text-sm text-green-50">
-                  <li><a href="#" className="hover:text-yellow-300 transition-colors">Domicilios</a></li>
-                  <li><a href="#" className="hover:text-yellow-300 transition-colors">Retiro en tienda</a></li>
+                  <li><Link href="/contacto" className="hover:text-yellow-300 transition-colors">Domicilios</Link></li>
+                  <li><Link href="/contacto" className="hover:text-yellow-300 transition-colors">Retiro en tienda</Link></li>
                 </ul>
               </div>
             </div>
 
-            {/* Club & Social */}
             <div>
               <h3 className="text-xl font-bold mb-4 pb-2 border-b border-[#007a3a]">Club Delicias</h3>
               <ul className="space-y-2 mb-6">
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Inscríbete</a></li>
-                <li><a href="#" className="hover:text-yellow-300 transition-colors">Beneficios</a></li>
+                <li><Link href="/registro" className="hover:text-yellow-300 transition-colors">Inscríbete</Link></li>
+                <li><Link href="/productos" className="hover:text-yellow-300 transition-colors">Beneficios</Link></li>
               </ul>
               <div className="flex space-x-3 mt-4">
                 <a href="#" className="bg-white text-[#009045] p-2 rounded-full hover:bg-yellow-300 hover:text-white transition"><Facebook size={18} /></a>
@@ -481,25 +475,22 @@ export default function Productos() {
           </div>
         </div>
 
-        {/* PARTE INFERIOR: LOGO FLOTANTE Y COPYRIGHT (DEL FOOTER 2) */}
         <div className="relative bg-[#007a3a] pt-16 pb-6 mt-auto shadow-inner">
-          
-          {/* LOGO CENTRAL FLOTANTE */}
           <div className="absolute left-1/2 transform -translate-x-1/2 -top-12 z-20">
-              <div className="bg-white p-1 rounded-full border-[6px] border-[#007a3a] shadow-xl hover:scale-105 transition-transform w-28 h-28 flex items-center justify-center overflow-hidden">
-                  <img src="/icons/DC.png" alt="Logo Footer" className="w-full h-full object-cover" />
-              </div>
+            <div className="bg-white p-1 rounded-full border-[6px] border-[#007a3a] shadow-xl hover:scale-105 transition-transform w-28 h-28 flex items-center justify-center overflow-hidden">
+              <img src="/icons/DC.png" alt="Logo Footer" className="w-full h-full object-cover" />
+            </div>
           </div>
-
-          {/* COPYRIGHT */}
           <div className="container mx-auto px-4 text-center flex flex-col gap-2 relative z-10">
-              <p className="text-sm font-medium">© 2025 Delicias Colombianas. Todos los derechos reservados.</p>
-              <p className="text-xs opacity-70 flex items-center justify-center gap-1 text-yellow-300">
-                  <Quote size={10} /> Calidad y Tradición <Quote size={10} />
-              </p>
+            <p className="text-sm font-medium">© 2025 Delicias Colombianas. Todos los derechos reservados.</p>
+            <p className="text-xs opacity-70 flex items-center justify-center gap-1 text-yellow-300">
+              <Quote size={10} /> Calidad y Tradición <Quote size={10} />
+            </p>
+            <p className="text-xs text-green-100/60 mt-2">
+              Plantilla de <a href="https://aurea-web.com" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-yellow-300 transition-colors">Áurea Web</a>
+            </p>
           </div>
         </div>
-
       </footer>
     </div>
   )

@@ -4,6 +4,24 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+
+  // 🖼️ AÑADIDO: Lista Segura (Safelisting) para clases dinámicas.
+  // Esto incluye las clases de color que vienen de la base de datos de Django
+  // para que Tailwind no las elimine durante la compilación.
+  safelist: [
+    // Clases de fondo que puedes usar en los banners (puedes añadir más si usas más colores)
+    'bg-green-600',
+    'bg-red-600',
+    'bg-purple-600',
+    'bg-blue-600',
+    'bg-pink-600',
+    'bg-yellow-600',
+    'bg-amber-600',
+    // La clase de texto que estás usando en el banner
+    'text-white',
+    'text-gray-800',
+  ],
+
   theme: {
     extend: {
       colors: {
