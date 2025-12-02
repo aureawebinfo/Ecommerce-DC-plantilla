@@ -1,98 +1,98 @@
 ﻿const DEBUG = false
-const API_BASE_URL = DEBUG! ? "https://ecommerce-dc-plantilla.onrender.com/api" : 'http://localhost:8000/api'
+const API_BASE_URL = !DEBUG ? "https://ecommerce-dc-plantilla.onrender.com/api" : 'http://localhost:8000/api'
 
 export const apiService = {
 
-  // ---------------------------
-  // 📌 OBTENER PRODUCTOS
-  // ---------------------------
-  async getProducts(filters = {}) {
-    try {
-      const queryParams = new URLSearchParams()
-      
-      if (filters.categoria && filters.categoria !== 'todos') {
-        queryParams.append('categoria', filters.categoria)
-      }
-      if (filters.search) {
-        queryParams.append('search', filters.search)
-      }
+    // ---------------------------
+    // 📌 OBTENER PRODUCTOS
+    // ---------------------------
+    async getProducts(filters = {}) {
+        try {
+            const queryParams = new URLSearchParams()
 
-      const url = `${API_BASE_URL}/productos/${queryParams.toString() ? `?${queryParams.toString()}` : ''}`
-      console.log('🔄 Fetching products from:', url)
-      
-      const response = await fetch(url)
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-      
-      const data = await response.json()
-      console.log('📦 Raw response:', data)
+            if (filters.categoria && filters.categoria !== 'todos') {
+                queryParams.append('categoria', filters.categoria)
+            }
+            if (filters.search) {
+                queryParams.append('search', filters.search)
+            }
 
-      // Si hay paginación, vienen en data.results
-      return data.results || data
-    } catch (error) {
-      console.error('❌ Error fetching products:', error)
-      throw error
-    }
-  },
+            const url = `${API_BASE_URL}/productos/${queryParams.toString() ? `?${queryParams.toString()}` : ''}`
+            console.log('🔄 Fetching products from:', url)
 
-  // ---------------------------
-  // ⭐ PRODUCTOS DESTACADOS
-  // ---------------------------
-  async getFeaturedProducts() {
-    try {
-      const response = await fetch(`${API_BASE_URL}/productos/destacados/`)
-      if (!response.ok) throw new Error('Error fetching featured products')
-      return await response.json()
-    } catch (error) {
-      console.error('Error fetching featured products:', error)
-      throw error
-    }
-  },
+            const response = await fetch(url)
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
 
-  // ---------------------------
-  // 📂 CATEGORÍAS
-  // ---------------------------
-  async getCategories() {
-    try {
-      const response = await fetch(`${API_BASE_URL}/productos/categorias/`)
-      if (!response.ok) throw new Error('Error fetching categories')
-      return await response.json()
-    } catch (error) {
-      console.error('Error fetching categories:', error)
-      throw error
-    }
-  },
+            const data = await response.json()
+            console.log('📦 Raw response:', data)
 
-  // ---------------------------
-  // 🔍 PRODUCTO INDIVIDUAL
-  // ---------------------------
-  async getProduct(id) {
-    try {
-      const response = await fetch(`${API_BASE_URL}/productos/${id}/`)
-      if (!response.ok) throw new Error('Error fetching product')
-      return await response.json()
-    } catch (error) {
-      console.error('Error fetching product:', error)
-      throw error
-    }
-  },
+            // Si hay paginación, vienen en data.results
+            return data.results || data
+        } catch (error) {
+            console.error('❌ Error fetching products:', error)
+            throw error
+        }
+    },
 
-  // ---------------------------
-  // 🖼️ BANNERS (CORREGIDO)
-  // ---------------------------
-  async getBanners() {
-    try {
-      // NOTA: Aquí la URL debe ser /api/banners/ (si es que incluyes las rutas de productos)
-      const response = await fetch(`${API_BASE_URL}/productos/banners/`)
-      if (!response.ok) throw new Error('Error fetching banners')
+    // ---------------------------
+    // ⭐ PRODUCTOS DESTACADOS
+    // ---------------------------
+    async getFeaturedProducts() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/productos/destacados/`)
+            if (!response.ok) throw new Error('Error fetching featured products')
+            return await response.json()
+        } catch (error) {
+            console.error('Error fetching featured products:', error)
+            throw error
+        }
+    },
 
-      // --- CAMBIO CLAVE AQUÍ ---
-      const data = await response.json()
-      return data.results || []          // ⬅️ AQUÍ DEVUELVES SOLO EL ARRAY
-      // -------------------------
+    // ---------------------------
+    // 📂 CATEGORÍAS
+    // ---------------------------
+    async getCategories() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/productos/categorias/`)
+            if (!response.ok) throw new Error('Error fetching categories')
+            return await response.json()
+        } catch (error) {
+            console.error('Error fetching categories:', error)
+            throw error
+        }
+    },
 
-    } catch (error) {
-      console.error('❌ Error fetching banners:', error)
-      return []
-    }
-  }
+    // ---------------------------
+    // 🔍 PRODUCTO INDIVIDUAL
+    // ---------------------------
+    async getProduct(id) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/productos/${id}/`)
+            if (!response.ok) throw new Error('Error fetching product')
+            return await response.json()
+        } catch (error) {
+            console.error('Error fetching product:', error)
+            throw error
+        }
+    },
+
+    // ---------------------------
+    // 🖼️ BANNERS (CORREGIDO)
+    // ---------------------------
+    async getBanners() {
+        try {
+            // NOTA: Aquí la URL debe ser /api/banners/ (si es que incluyes las rutas de productos)
+            const response = await fetch(`${API_BASE_URL}/productos/banners/`)
+            if (!response.ok) throw new Error('Error fetching banners')
+
+            // --- CAMBIO CLAVE AQUÍ ---
+            const data = await response.json()
+            return data.results || []          // ⬅️ AQUÍ DEVUELVES SOLO EL ARRAY
+            // -------------------------
+
+        } catch (error) {
+            console.error('❌ Error fetching banners:', error)
+            return []
+        }
+    }
 } // <--- ¡Asegúrate de que la llave de cierre final esté AQUÍ!
