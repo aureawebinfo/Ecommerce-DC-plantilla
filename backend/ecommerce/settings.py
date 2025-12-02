@@ -5,23 +5,13 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-simple-y-funcional'
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'productos',
-    'usuarios',
-]
-
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',             # 1. CORS va primero
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'whitenoise.middleware.WhiteNoiseMiddleware',        # 2. WhiteNoise va justo después de Security
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -118,18 +108,6 @@ INSTALLED_APPS = [
     # Local apps
     'productos',
     'usuarios',
-]
-
-# ACTUALIZA LA SECCIÓN DE MIDDLEWARE (corsheaders debe ir primero):
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # ✅ Agregar esto
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 # URL base para acceder a los archivos (ej: http://localhost:8000/media/foto.jpg)
