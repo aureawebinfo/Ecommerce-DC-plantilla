@@ -14,7 +14,10 @@ import {
   MapPin, Phone, Mail, Facebook, Instagram, Youtube, Linkedin, MessageCircle // Iconos footer
 } from 'lucide-react'
 
-const DJANGO_BASE_URL = 'http://127.0.0.1:8000';
+const DEBUG = false
+const BACKEND_URL = !DEBUG ? "https://ecommerce-dc-plantilla.onrender.com" : 'http://localhost:8000'
+
+const DJANGO_BASE_URL = `${BACKEND_URL}`;
 const DJANGO_MEDIA_PATH = '/media/';
 
 export default function Home() {

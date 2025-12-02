@@ -1,6 +1,9 @@
 'use client'
 import { createContext, useState, useContext, useEffect } from 'react'
 
+const DEBUG = false
+const API_URL = !DEBUG ? "https://ecommerce-dc-plantilla.onrender.com/api" : 'http://localhost:8000/api'
+
 const AuthContext = createContext()
 
 export const useAuth = () => {
@@ -26,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:8000/api/usuarios/login/', {
+      const response = await fetch(`${API_URL}/usuarios/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +79,7 @@ export const AuthProvider = ({ children }) => {
 
       console.log('📤 Enviando al backend:', registrationData);
 
-      const response = await fetch('http://localhost:8000/api/usuarios/registro/', {
+      const response = await fetch(`${API_URL}/usuarios/registro/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +132,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     // Llamar al endpoint de logout del backend
-    fetch('http://localhost:8000/api/usuarios/logout/', {
+    fetch(`${API_URL}/usuarios/logout/`, {
       method: 'POST',
       credentials: 'include'
     }).catch(console.error)

@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
+const DEBUG = false
+const API_URL = !DEBUG ? "https://ecommerce-dc-plantilla.onrender.com/api" : 'http://localhost:8000/api'
+
 export default function ProductGrid() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,7 +12,7 @@ export default function ProductGrid() {
   useEffect(() => {
     const cargarProductos = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/productos/');
+        const response = await fetch(`${API_URL}/productos/`);
         const data = await response.json();
         setProductos(data.results || []);
       } catch (error) {
