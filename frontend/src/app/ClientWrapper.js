@@ -8,7 +8,8 @@ import { CartProvider } from '../context/CartContext' // Asegúrate que esta rut
 
 // 🔗 Configuración de la URL de Heartbeat
 // Ajusta el dominio si es necesario
-const HEARTBEAT_URL = 'http://127.0.0.1:8000/api/productos/heartbeat/'; 
+const DEBUG = false
+const HEARTBEAT_URL = !DEBUG ? "https://ecommerce-dc-plantilla.onrender.com/api/productos/heartbeat/" : 'http://127.0.0.1:8000/api/productos/heartbeat/'; 
 const INTERVALO_MS = 5 * 60 * 1000; // 5 minutos
 
 // Componente interno para el Heartbeat
