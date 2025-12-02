@@ -1,4 +1,5 @@
-﻿const API_BASE_URL = 'http://localhost:8000/api'
+﻿const DEBUG = false
+const API_BASE_URL = DEBUG! ? "https://ecommerce-dc-plantilla.onrender.com/api" : 'http://localhost:8000/api'
 
 export const apiService = {
 
